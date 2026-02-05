@@ -166,6 +166,9 @@ updateUI();
 
 // Modal functionality
 const modalOverlay = document.getElementById('modalOverlay');
+const galleryOverlay = document.getElementById('galleryOverlay');
+const galleryBtn = document.getElementById('galleryBtn');
+const galleryGrid = document.getElementById('galleryGrid');
 const addBtn = document.getElementById('addBtn');
 const cancelBtn = document.getElementById('cancelBtn');
 const entryForm = document.getElementById('entryForm');
@@ -245,3 +248,33 @@ document.addEventListener('keydown', (e) => {
     updateUI();
   }
 });
+
+galleryBtn.addEventListener('click', () => {
+  renderGallery();
+  galleryOverlay.classList.add('active');
+});
+
+galleryOverlay.addEventListener('click', (e) => {
+  if (e.target === galleryOverlay) {
+    galleryOverlay.classList.remove('active');
+  }
+});
+
+function renderGallery() {
+  galleryGrid.innerHTML = entries.map((entry, idx) => `
+    <div class="gallery-item" data-index="${idx}">
+      <span class="mood">${entry.mood}</span>
+      <h3 class="title">${entry.title}</h3>
+      <span class="date">${entry.date}</span>
+    </div>
+  `).join('');
+  
+  galleryGrid.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => {
+      currentIndex = parseInt(item.dataset.index);
+      renderCard();
+      updateUI();
+      galleryOverlay.classList.remove('active');
+    });
+  });
+}

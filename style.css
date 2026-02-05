@@ -470,3 +470,64 @@ body.card-expanded .top-buttons {
 body.card-expanded .nav {
   margin-top: 73px;
 }
+
+.gallery-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.gallery-overlay.active {
+  display: flex;
+}
+
+.gallery-modal {
+  background: #18181b;
+  border: 1px solid #27272a;
+  border-radius: 16px;
+  padding: 32px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.gallery-item {
+  background: #09090b;
+  border: 1px solid #27272a;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gallery-item:hover {
+  border-color: #FF69EB;
+  box-shadow: 0 0 15px rgba(255, 105, 235, 0.2);
+}
+
+.gallery-item .mood {
+  font-size: 20px;
+}
+
+.gallery-item .title {
+  font-size: 14px;
+  margin: 8px 0 4px;
+  text-align: left;
+}
+
+.gallery-item .date {
+  font-size: 11px;
+  color: #71717a;
+}
