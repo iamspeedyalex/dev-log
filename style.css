@@ -51,6 +51,29 @@ body::before {
   margin: 8px auto 0;
 }
 
+/* Top buttons */
+.top-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 44px;
+}
+
+.top-btn {
+  background: transparent;
+  border: 1px solid #27272a;
+  color: #FF86C8;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.top-btn:hover {
+  border-color: #FF69EB;
+  box-shadow: 0 0 15px rgba(255, 105, 235, 0.2);
+}
+
 /* Card stack container */
 .card-stack {
   position: relative;
@@ -223,7 +246,7 @@ body::before {
   display: flex;
   align-items: center;
   gap: 32px;
-  margin-top: 32px;
+  margin-top: 44px;
 }
 
 .nav-btn {
@@ -298,26 +321,6 @@ body::before {
 .footer-dim {
   color: #FF69EB;
   opacity: 0.3;
-}
-
-/* Add button */
-.add-btn {
-  position: absolute;
-  top: 32px;
-  right: 32px;
-  background: transparent;
-  border: 1px solid #27272a;
-  color: #FF86C8;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.add-btn:hover {
-  border-color: #FF69EB;
-  box-shadow: 0 0 15px rgba(255, 105, 235, 0.2);
 }
 
 /* Modal */
