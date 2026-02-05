@@ -1,4 +1,4 @@
-const entries = [
+let entries = JSON.parse(localStorage.getItem('devlog-entries')) || [
   {
     id: 1,
     date: '2026-02-05',
@@ -27,6 +27,22 @@ const entries = [
     mood: '🌿'
   }
 ];
+
+function saveEntries() {
+  localStorage.setItem('devlog-entries', JSON.stringify(entries));
+}
+
+let editingId = null;
+
+function openEditModal(entry) {
+  editingId = entry.id;
+  document.getElementById('formTitle').value = entry.title;
+  document.getElementById('formTags').value = entry.tags.join(', ');
+  document.getElementById('formMood').value = entry.mood;
+  document.getElementById('formContent').value = entry.content;
+  document.querySelector('.modal-title').textContent = 'Edit Log Entry';
+  modalOverlay.classList.add('active');
+}
 
 let currentIndex = 0;
 
@@ -61,12 +77,37 @@ function renderCard() {
       <p class="preview">${entry.preview}</p>
       <div class="content">${entry.content}</div>
       <div class="expand-hint">tap to expand</div>
+      <div class="card-actions">
+        <button class="edit-btn">Edit</button>
+        <button class="delete-btn">Delete</button>
+      </div>
     </div>
   `;
   
   const card = document.querySelector('.card');
   card.addEventListener('click', () => {
     card.classList.toggle('expanded');
+    document.body.classList.toggle('card-expanded', card.classList.contains('expanded'));
+});
+
+  const editBtn = document.querySelector('.edit-btn');
+  editBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openEditModal(entry);
+  });
+
+  const deleteBtn = document.querySelector('.delete-btn');
+  deleteBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (confirm('Delete this entry?')) {
+        entries.splice(currentIndex, 1);
+        saveEntries();
+        if (currentIndex >= entries.length) {
+            currentIndex = entries.length -1;
+        }
+        renderCard();
+        updateUI();
+    }
   });
 }
 
@@ -74,7 +115,7 @@ function renderDots() {
   const dotsContainer = document.getElementById('dots');
   
   // Only create dots once
-  if (dotsContainer.children.length === 0) {
+  if (dotsContainer.children.length !== entries.length) {
     dotsContainer.innerHTML = entries.map((_, idx) => 
       `<button class="dot" data-index="${idx}"></button>`
     ).join('');
@@ -156,21 +197,51 @@ entryForm.addEventListener('submit', (e) => {
   const content = document.getElementById('formContent').value;
   const preview = content.slice(0, 60) + (content.length > 60 ? '...' : '');
   
-  const newEntry = {
-    id: Date.now(),
-    date: today,
-    title,
-    tags,
-    preview,
-    content,
-    mood
-  };
+  if (editingId) {
+    const index = entries.findIndex(e => e.id === editingId);
+    entries[index] = { ...entries[index], title, tags, mood, content, preview };
+    editingId = null;
+  } else {
+    const newEntry = {
+      id: Date.now(),
+      date: today,
+      title,
+      tags,
+      preview,
+      content,
+      mood
+    };
+    entries.unshift(newEntry);
+    currentIndex = 0;
+  }
   
-  entries.unshift(newEntry);
-  currentIndex = 0;
+  saveEntries();
   renderCard();
   updateUI();
   
+  document.querySelector('.modal-title').textContent = 'New Log Entry';
   modalOverlay.classList.remove('active');
   entryForm.reset();
+});
+
+document.addEventListener('click', (e) => {
+  const card = document.querySelector('.card');
+  if (card && card.classList.contains('expanded') && !card.contains(e.target)) {
+    card.classList.remove('expanded');
+    document.body.classList.remove('card-expanded');
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (modalOverlay.classList.contains('active')) return;
+  
+  if (e.key === 'ArrowLeft') {
+    currentIndex = (currentIndex - 1 + entries.length) % entries.length;
+    renderCard();
+    updateUI();
+  } else if (e.key === 'ArrowRight') {
+    currentIndex = (currentIndex + 1) % entries.length;
+    renderCard();
+    updateUI();
+  }
 });

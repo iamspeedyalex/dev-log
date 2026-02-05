@@ -419,3 +419,54 @@ body::before {
 .btn-save:hover {
   background: #FF86C8;
 }
+
+.card-actions {
+  display: none;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.card.expanded .card-actions {
+  display: flex;
+}
+
+.edit-btn {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid #FFBF81;
+  color: #FFBF81;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-btn:hover {
+  background: #FFBF81;
+  color: #09090b;
+}
+
+.delete-btn {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+  background: #ef4444;
+  color: #09090b;
+}
+
+body.card-expanded .top-buttons {
+  margin-bottom: 73px;
+}
+
+body.card-expanded .nav {
+  margin-top: 73px;
+}
