@@ -1,13 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev Log</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="header">
+    <h1>Dev Log</h1>
+    <div class="header-line"></div>
+  </div>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Project Dev Log</title>
-    </head>
+  <div class="card-stack">
+    <div class="ghost-card"></div>
+    <div class="ghost-card"></div>
+    <div class="container"></div>
+  </div>
 
-    <body>
-        
-    </body>
+  <div class="nav">
+    <button class="nav-btn" id="prevBtn">←</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav-btn" id="nextBtn">→</button>
+  </div>
+
+  <div class="counter">
+    <span class="current" id="currentNum">01</span>
+    <span> / </span>
+    <span id="totalNum">02</span>
+  </div>
+
+<button class="add-btn" id="addBtn">+ New Log</button>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2 class="modal-title">New Log Entry</h2>
+    <form id="entryForm">
+      <input type="text" id="formTitle" placeholder="Title" required>
+      <input type="text" id="formTags" placeholder="Tags (comma separated)">
+      <input type="text" id="formMood" placeholder="Mood emoji" maxlength="2">
+      <textarea id="formContent" placeholder="What did you learn or build today?" required></textarea>
+      <div class="modal-buttons">
+        <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
+        <button type="submit" class="btn-save">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+  <div class="footer-icon"><span class="footer-glow">A</span> <span class="footer-dim">‹/›</span> <span class="footer-glow">H</span></div>
+
+  <script src="script.js"></script>
+</body>
 </html>
