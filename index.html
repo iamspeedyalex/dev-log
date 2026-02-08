@@ -38,11 +38,20 @@
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <h2 class="modal-title">New Log Entry</h2>
+    
     <form id="entryForm">
+      <label for="formTitle" class="visually-hidden">Title</label>
       <input type="text" id="formTitle" placeholder="Title" required>
+    
+      <label for="formTags" class="visually-hidden">Tags</label>
       <input type="text" id="formTags" placeholder="Tags (comma separated)">
+    
+      <label for="formMood" class="visually-hidden">Mood emoji</label>
       <input type="text" id="formMood" placeholder="Mood emoji" maxlength="2">
+    
+      <label for="formContent" class="visually-hidden">Content</label>
       <textarea id="formContent" placeholder="What did you learn or build today?" required></textarea>
+    
       <div class="modal-buttons">
         <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
         <button type="submit" class="btn-save">Save</button>
